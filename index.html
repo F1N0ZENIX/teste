@@ -1,0 +1,836 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#24170f">
+  <title>Canudos — História da Bahia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #21170f;
+      --surface: #302217;
+      --surface2: #3b2a1c;
+      --sand: #f3d7a6;
+      --cream: #fff0d5;
+      --muted: #c6ac8b;
+      --gold: #e8aa58;
+      --line: rgba(243,215,166,.16);
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--cream);
+      font-family: "DM Sans", Arial, sans-serif;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* FUNDO ANIMADO */
+    .sertão {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: -1;
+      background:
+        radial-gradient(ellipse at 75% 22%, #82502e 0%, transparent 46%),
+        linear-gradient(180deg, #25170f 0%, #50301e 55%, #1b140e 100%);
+    }
+
+    .sol {
+      position: absolute;
+      width: 270px;
+      height: 270px;
+      top: 12%;
+      right: 13%;
+      border-radius: 50%;
+      background: radial-gradient(circle, #ffe4a5 0%, #edaa59 48%, #c97835 78%);
+      box-shadow: 0 0 85px 35px rgba(237,156,70,.24);
+      animation: solRespira 7s ease-in-out infinite alternate;
+    }
+
+    @keyframes solRespira {
+      from { transform: scale(.96); opacity: .72; }
+      to { transform: scale(1.08); opacity: 1; }
+    }
+
+    .duna {
+      position: absolute;
+      width: 150%;
+      height: 35%;
+      left: -25%;
+      bottom: -15%;
+      border-radius: 50% 50% 0 0;
+      background: #4c3020;
+      animation: dunaMove 18s ease-in-out infinite alternate;
+    }
+
+    .duna.dois {
+      bottom: -23%;
+      left: -8%;
+      background: #291c14;
+      animation-duration: 25s;
+      animation-direction: alternate-reverse;
+    }
+
+    @keyframes dunaMove {
+      from { transform: translateX(-3%); }
+      to { transform: translateX(4%); }
+    }
+
+    .poeira {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: #f9d69d;
+      opacity: 0;
+      animation: flutuar linear infinite;
+    }
+
+    @keyframes flutuar {
+      0% { transform: translate(0, 35px); opacity: 0; }
+      20% { opacity: .55; }
+      80% { opacity: .35; }
+      100% { transform: translate(100px, -140px); opacity: 0; }
+    }
+
+    /* NAVEGAÇÃO */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      background: rgba(30,20,13,.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    nav {
+      max-width: 1120px;
+      margin: auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: "Playfair Display", Georgia, serif;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 22px;
+      white-space: nowrap;
+    }
+
+    .links {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    a { color: var(--gold); }
+    .links a {
+      color: var(--cream);
+      font-size: 13px;
+      text-decoration: none;
+    }
+    .links a:hover { color: var(--gold); }
+
+    /* CAPA */
+    .hero {
+      min-height: 88vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 95px 24px;
+    }
+
+    .hero-content { max-width: 900px; }
+
+    .eyebrow {
+      text-transform: uppercase;
+      letter-spacing: 4px;
+      font-size: 12px;
+      color: var(--gold);
+      font-weight: 700;
+    }
+
+    h1, h2, h3 {
+      font-family: "Playfair Display", Georgia, serif;
+      line-height: 1.25;
+    }
+
+    h1 {
+      font-size: clamp(65px, 13vw, 150px);
+      margin: 15px 0;
+      letter-spacing: -4px;
+      text-shadow: 0 12px 35px #140c08;
+    }
+
+    .subtitle {
+      font-size: clamp(19px, 3vw, 27px);
+      color: var(--sand);
+      margin-bottom: 30px;
+    }
+
+    .periodo {
+      display: inline-block;
+      border: 1px solid var(--gold);
+      border-radius: 50px;
+      padding: 8px 26px;
+      color: var(--gold);
+      letter-spacing: 2px;
+      font-weight: 700;
+    }
+
+    .integrantes {
+      margin-top: 55px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .integrantes strong {
+      display: block;
+      color: var(--cream);
+      font-size: 16px;
+      margin-top: 7px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 28px;
+      border: 1px solid var(--gold);
+      border-radius: 50px;
+      background: var(--gold);
+      color: #21170f;
+      font-weight: 700;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .btn:hover { background: var(--cream); }
+
+    /* CONTEÚDO */
+    main {
+      max-width: 1050px;
+      margin: auto;
+      padding: 0 24px 90px;
+    }
+
+    section {
+      margin: 45px 0;
+      padding: 45px;
+      background: rgba(39,27,18,.91);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 15px 50px rgba(0,0,0,.14);
+    }
+
+    .numero {
+      color: var(--gold);
+      font-size: 12px;
+      letter-spacing: 3px;
+      font-weight: 700;
+    }
+
+    h2 {
+      font-size: clamp(30px, 5vw, 43px);
+      margin: 10px 0 25px;
+    }
+
+    h3 { font-size: 23px; color: var(--sand); }
+
+    p { color: #e7d5bd; font-size: 16px; }
+    strong { color: var(--cream); }
+
+    .destaque {
+      margin: 30px 0;
+      padding: 25px;
+      background: rgba(232,170,88,.08);
+      border-left: 3px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+      color: var(--sand);
+      font-family: Georgia, serif;
+      font-size: 20px;
+      font-style: italic;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 25px;
+    }
+
+    .card {
+      padding: 23px;
+      border-radius: 12px;
+      background: rgba(232,170,88,.065);
+      border: 1px solid var(--line);
+    }
+
+    .card h3 { margin: 0 0 12px; }
+    .card p { margin: 0; font-size: 15px; }
+
+    .timeline {
+      margin-top: 35px;
+      padding-left: 30px;
+      border-left: 2px solid var(--gold);
+    }
+
+    .evento {
+      position: relative;
+      margin-bottom: 35px;
+    }
+
+    .evento::before {
+      content: "";
+      position: absolute;
+      left: -38px;
+      top: 7px;
+      width: 12px;
+      height: 12px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px #4a3020;
+    }
+
+    .ano {
+      font-weight: 800;
+      color: var(--gold);
+      font-size: 19px;
+    }
+
+    .evento h3 { margin: 5px 0; }
+    .evento p { margin-top: 7px; }
+
+    .referencias a {
+      display: block;
+      padding: 16px;
+      margin: 12px 0;
+      background: rgba(232,170,88,.07);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      text-decoration: none;
+      overflow-wrap: anywhere;
+    }
+    .referencias a:hover {
+      background: rgba(232,170,88,.16);
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 45px 20px;
+      border-top: 1px solid var(--line);
+      background: #1b130e;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 700px) {
+      nav { flex-direction: column; }
+      .links { justify-content: center; gap: 12px; }
+      .links a { font-size: 12px; }
+      section { padding: 25px 20px; }
+      .grid { grid-template-columns: 1fr; }
+      .sol { width: 170px; height: 170px; right: 8%; }
+      h1 { letter-spacing: -2px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      .sertão, header, .btn { display: none !important; }
+      .hero { min-height: auto; padding: 40px 0; }
+      .hero h1, h2, h3, p, strong,
+      .subtitle, .integrantes, .integrantes strong {
+        color: #222 !important;
+        text-shadow: none;
+      }
+      section {
+        background: white;
+        box-shadow: none;
+        border: 1px solid #ccc;
+        break-inside: avoid;
+      }
+      .card { background: white; }
+      .referencias a { color: #754015; }
+      footer { background: white; color: #333; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sertão" aria-hidden="true">
+    <div class="sol"></div>
+    <div class="duna"></div>
+    <div class="duna dois"></div>
+    <div id="poeira-container"></div>
+  </div>
+
+  <header>
+    <nav>
+      <div class="logo">CANUDOS.</div>
+      <div class="links">
+        <a href="#contexto">Contexto</a>
+        <a href="#conselheiro">Conselheiro</a>
+        <a href="#causas">Causas</a>
+        <a href="#guerra">A Guerra</a>
+        <a href="#consequencias">Consequências</a>
+        <a href="#referencias">Fontes</a>
+      </div>
+    </nav>
+  </header>
+
+  <div class="hero">
+    <div class="hero-content">
+      <div class="eyebrow">História da Bahia</div>
+      <h1>CANUDOS</h1>
+      <div class="subtitle">A resistência de um povo no coração do sertão baiano</div>
+      <div class="periodo">1896 — 1897</div>
+
+      <p>
+        Uma comunidade, um líder religioso e um dos conflitos
+        mais marcantes da história do Brasil.
+      </p>
+
+      <div class="integrantes">
+        INTEGRANTES
+        <strong>Antenor · Devid Paixão · Diego · Paulo Henrique</strong>
+      </div>
+
+      <a href="#contexto" class="btn">Explorar a história ↓</a>
+    </div>
+  </div>
+
+  <main>
+    <section id="contexto">
+      <div class="numero">01 — CONTEXTO HISTÓRICO</div>
+      <h2>O sertão baiano no final do século XIX</h2>
+
+      <p>
+        No final do século XIX, o Brasil vivia grandes transformações.
+        A escravidão havia sido abolida em 1888 e a República foi
+        proclamada em 1889. Entretanto, essas mudanças políticas
+        não resolveram os problemas sociais enfrentados por grande
+        parte da população.
+      </p>
+
+      <p>
+        No sertão da Bahia, a pobreza, as secas, a concentração de
+        terras e a ausência de serviços públicos tornavam a vida
+        extremamente difícil. Muitos sertanejos dependiam dos grandes
+        proprietários rurais para sobreviver, em uma sociedade
+        marcada por profundas desigualdades.
+      </p>
+
+      <p>
+        Nesse cenário, surgiu a comunidade de Belo Monte,
+        conhecida como Canudos, localizada na região do rio Vaza-Barris,
+        no interior da Bahia. O povoado tornou-se um lugar de acolhimento
+        para pessoas que buscavam melhores condições de vida,
+        proteção e uma comunidade baseada na religiosidade.
+      </p>
+
+      <div class="destaque">
+        Canudos representava, para muitos sertanejos,
+        a possibilidade de construir uma vida diferente
+        em meio à pobreza e à exclusão social.
+      </div>
+    </section>
+
+    <section id="conselheiro">
+      <div class="numero">02 — PRINCIPAL LIDERANÇA</div>
+      <h2>Quem foi Antônio Conselheiro?</h2>
+
+      <p>
+        Antônio Vicente Mendes Maciel, conhecido como
+        <strong>Antônio Conselheiro</strong>, nasceu em 1830,
+        no Ceará. Tornou-se um líder religioso popular,
+        percorrendo diferentes regiões do Nordeste,
+        pregando ensinamentos cristãos e participando
+        da construção e recuperação de igrejas e cemitérios.
+      </p>
+
+      <p>
+        Sua mensagem conquistou seguidores entre pessoas
+        pobres e marginalizadas. Em 1893, Conselheiro
+        e seus seguidores se estabeleceram em Belo Monte,
+        onde a comunidade cresceu rapidamente.
+      </p>
+
+      <p>
+        Conselheiro criticava aspectos da nova ordem republicana,
+        especialmente medidas que considerava contrárias
+        à religião. Suas posições religiosas e políticas
+        provocaram conflitos com autoridades civis
+        e religiosas.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Liderança religiosa</h3>
+          <p>
+            Seus sermões reuniam milhares de seguidores
+            e influenciavam a organização da comunidade.
+          </p>
+        </div>
+        <div class="card">
+          <h3>Belo Monte</h3>
+          <p>
+            A comunidade atraía agricultores, trabalhadores,
+            famílias pobres e pessoas de diferentes origens.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="causas">
+      <div class="numero">03 — ORIGENS DO CONFLITO</div>
+      <h2>Por que aconteceu a Guerra de Canudos?</h2>
+
+      <p>
+        A Guerra de Canudos não teve uma única causa.
+        Ela resultou de tensões sociais, econômicas,
+        religiosas e políticas existentes no Brasil
+        durante os primeiros anos da República.
+      </p>
+
+      <div class="grid">
+        <div class="card">
+          <h3>Desigualdade social</h3>
+          <p>
+            A pobreza e a concentração de terras
+            contribuíam para a insatisfação dos sertanejos.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Conflitos políticos</h3>
+          <p>
+            Autoridades republicanas passaram a enxergar
+            Canudos como uma ameaça à ordem estabelecida.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Questões religiosas</h3>
+          <p>
+            As críticas de Conselheiro a determinadas
+            mudanças republicanas geraram desconfiança
+            e oposição de setores do poder.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>Autonomia da comunidade</h3>
+          <p>
+            O crescimento de Belo Monte incomodava
+            interesses políticos e econômicos regionais,
+            inclusive pela atração de trabalhadores.
+          </p>
+        </div>
+      </div>
+
+      <p>
+        Um desentendimento relacionado à compra de madeira
+        em Juazeiro contribuiu para o envio da primeira
+        força militar contra Canudos. A partir daí,
+        a situação evoluiu para um conflito armado
+        de grandes proporções.
+      </p>
+    </section>
+
+    <section id="guerra">
+      <div class="numero">04 — O CONFLITO ARMADO</div>
+      <h2>As quatro expedições militares</h2>
+
+      <p>
+        Entre 1896 e 1897, foram organizadas quatro expedições
+        militares contra Canudos. As três primeiras fracassaram,
+        demonstrando a capacidade de resistência dos moradores
+        e as dificuldades enfrentadas pelas tropas no sertão.
+      </p>
+
+      <div class="timeline">
+        <div class="evento">
+          <div class="ano">1896</div>
+          <h3>Primeira expedição</h3>
+          <p>
+            Comandada pelo tenente Manuel Pires Ferreira,
+            a força militar foi derrotada pelos sertanejos
+            no combate de Uauá, em novembro de 1896.
+          </p>
+        </div>
+
+        <div class="evento">
+          <div class="ano">Janeiro de 1897</div>
+          <h3>Segunda expedição</h3>
+          <p>
+            Liderada pelo major Febrônio de Brito,
+            a segunda expedição também fracassou.
+            Os combatentes de Canudos conheciam bem
+            o terreno e conseguiram resistir ao avanço.
+          </p>
+        </div>
+
+        <div class="evento">
+          <div class="ano">Março de 1897</div>
+          <h3>Terceira expedição</h3>
+          <p>
+            Sob o comando do coronel Antônio Moreira César,
+            a terceira expedição terminou em derrota.
+            O comandante morreu durante os combates,
+            aumentando a repercussão nacional da guerra.
+          </p>
+        </div>
+
+        <div class="evento">
+          <div class="ano">Junho a outubro de 1897</div>
+          <h3>Quarta expedição</h3>
+          <p>
+            Uma operação militar muito maior, sob o comando
+            geral do general Artur Oscar, cercou Canudos.
+            Após meses de combates e destruição,
+            a resistência foi vencida em 5 de outubro de 1897.
+          </p>
+        </div>
+      </div>
+
+      <div class="destaque">
+        A resistência de Canudos surpreendeu o Exército
+        brasileiro e transformou um conflito regional
+        em uma questão nacional.
+      </div>
+    </section>
+
+    <section id="consequencias">
+      <div class="numero">05 — DESFECHO E CONSEQUÊNCIAS</div>
+      <h2>A destruição de Canudos</h2>
+
+      <p>
+        A quarta expedição provocou a destruição de Belo Monte.
+        O conflito resultou em milhares de mortes,
+        incluindo moradores da comunidade e militares.
+        O número exato de vítimas permanece incerto.
+      </p>
+
+      <p>
+        Antônio Conselheiro morreu em 22 de setembro de 1897,
+        pouco antes da derrota definitiva do povoado.
+        Em 5 de outubro, a resistência organizada chegou ao fim.
+      </p>
+
+      <p>
+        A guerra expôs a violência empregada pelo Estado
+        contra uma população sertaneja e revelou as profundas
+        desigualdades existentes na sociedade brasileira.
+        Também mostrou como o preconceito contra os habitantes
+        do interior influenciou a maneira como o conflito
+        foi interpretado por parte da imprensa e das autoridades.
+      </p>
+
+      <h3>O legado de Canudos</h3>
+      <p>
+        Canudos tornou-se um símbolo histórico da resistência
+        sertaneja. O episódio continua sendo estudado
+        por historiadores, pesquisadores e estudantes
+        para compreender as relações entre poder,
+        desigualdade, religiosidade e violência no Brasil.
+      </p>
+
+      <p>
+        Uma das obras mais importantes sobre o conflito
+        é <strong>Os Sertões</strong>, publicada em 1902
+        por Euclides da Cunha, que acompanhou parte
+        da guerra como correspondente do jornal
+        O Estado de S. Paulo.
+      </p>
+    </section>
+
+    <section id="linha-do-tempo">
+      <div class="numero">06 — CRONOLOGIA</div>
+      <h2>Linha do tempo de Canudos</h2>
+
+      <div class="timeline">
+        <div class="evento">
+          <div class="ano">1889</div>
+          <h3>Proclamação da República</h3>
+          <p>
+            O Brasil deixa de ser uma monarquia,
+            iniciando um período de transformações políticas.
+          </p>
+        </div>
+
+        <div class="evento">
+          <div class="ano">1893</div>
+          <h3>Formação de Belo Monte</h3>
+          <p>
+            Antônio Conselheiro e seus seguidores
+            se estabelecem no local conhecido como Canudos.
+          </p>
+        </div>
+
+        <div class="evento">
+          <div class="ano">1896</div>
+          <h3>Início da guerra</h3>
+          <p>
+            A primeira expedição militar é enviada
+            contra a comunidade.
+          </p>
+        </div>
+
+        <div class="evento">
+          <div class="ano">1897</div>
+          <h3>Fim da resistência</h3>
+          <p>
+            Após quatro expedições, Canudos é destruída
+            em 5 de outubro.
+          </p>
+        </div>
+
+        <div class="evento">
+          <div class="ano">1902</div>
+          <h3>Publicação de Os Sertões</h3>
+          <p>
+            Euclides da Cunha publica sua obra,
+            que se torna uma referência fundamental
+            para o estudo do conflito.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section id="conclusao">
+      <div class="numero">07 — CONCLUSÃO</div>
+      <h2>O que a história de Canudos nos ensina?</h2>
+
+      <p>
+        A Guerra de Canudos foi muito mais do que um confronto
+        entre o Exército e uma comunidade religiosa.
+        Ela revelou problemas estruturais do Brasil,
+        como a desigualdade social, a concentração de terras,
+        a pobreza e a exclusão das populações sertanejas.
+      </p>
+
+      <p>
+        A resistência dos habitantes de Belo Monte demonstra
+        como grupos marginalizados buscaram construir
+        alternativas diante das dificuldades enfrentadas.
+        Entretanto, a reação violenta do governo
+        resultou na destruição da comunidade.
+      </p>
+
+      <p>
+        Estudar Canudos é importante para compreender
+        a história da Bahia e do Brasil, reconhecer
+        a importância do povo sertanejo e refletir
+        sobre os efeitos da intolerância,
+        do preconceito e da violência política.
+      </p>
+    </section>
+
+    <section id="referencias" class="referencias">
+      <div class="numero">08 — FONTES DE PESQUISA</div>
+      <h2>Referências bibliográficas</h2>
+
+      <p>
+        Consulte as fontes abaixo para aprofundar
+        seus conhecimentos sobre a Guerra de Canudos.
+      </p>
+
+      <a href="https://cpdoc.fgv.br/" target="_blank" rel="noopener noreferrer">
+        <strong>FGV — CPDOC</strong><br>
+        Centro de Pesquisa e Documentação de História
+        Contemporânea do Brasil.
+      </a>
+
+      <a href="https://www.gov.br/museus/pt-br/museus-ibram/museu-da-republica"
+         target="_blank" rel="noopener noreferrer">
+        <strong>Museu da República — IBRAM</strong><br>
+        Acervo e informações sobre a história republicana brasileira.
+      </a>
+
+      <a href="https://www.gov.br/fundaj/pt-br"
+         target="_blank" rel="noopener noreferrer">
+        <strong>Fundação Joaquim Nabuco</strong><br>
+        Instituição de pesquisa e preservação
+        da história e da cultura do Nordeste.
+      </a>
+
+      <a href="https://brasilescola.uol.com.br/historiab/guerra-de-canudos.htm"
+         target="_blank" rel="noopener noreferrer">
+        <strong>Brasil Escola — Guerra de Canudos</strong><br>
+        Material didático sobre as causas,
+        o desenvolvimento e as consequências do conflito.
+      </a>
+
+      <a href="https://www.gutenberg.org/ebooks/search/?query=Os+Sertoes"
+         target="_blank" rel="noopener noreferrer">
+        <strong>Euclides da Cunha — Os Sertões (1902)</strong><br>
+        Busca pela obra histórica no acervo do Project Gutenberg.
+      </a>
+
+      <p style="font-size:13px;color:var(--muted)">
+        Observação: alguns links levam aos portais institucionais,
+        nos quais é possível pesquisar por "Guerra de Canudos".
+      </p>
+    </section>
+
+    <div style="text-align:center">
+      <button class="btn" onclick="window.print()">
+        Imprimir ou salvar como PDF
+      </button>
+    </div>
+  </main>
+
+  <footer>
+    <strong>CANUDOS — 1896–1897</strong>
+    <p>História da Bahia · Memória e resistência sertaneja</p>
+    <p>Antenor · Devid Paixão · Diego · Paulo Henrique</p>
+  </footer>
+
+  <script>
+    // Partículas de poeira animadas no fundo
+    const container = document.getElementById("poeira-container");
+    const reduzirMovimento = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (!reduzirMovimento) {
+      for (let i = 0; i < 45; i++) {
+        const particula = document.createElement("span");
+        particula.className = "poeira";
+
+        particula.style.left = Math.random() * 100 + "%";
+        particula.style.top = Math.random() * 100 + "%";
+        particula.style.animationDelay = -(Math.random() * 15) + "s";
+        particula.style.animationDuration =
+          (8 + Math.random() * 14) + "s";
+
+        const tamanho = 1 + Math.random() * 3;
+        particula.style.width = tamanho + "px";
+        particula.style.height = tamanho + "px";
+
+        container.appendChild(particula);
+      }
+    }
+  </script>
+</body>
+</html>
